@@ -5,8 +5,8 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 void do_exit(char **cmd, global_t *global)
 {
@@ -31,6 +31,7 @@ void do_exit(char **cmd, global_t *global)
 int look_env(char **env, char **cmd)
 {
     int i = 0;
+
     if (count_line(cmd) > 1)
         return 84;
     while (env[i]) {

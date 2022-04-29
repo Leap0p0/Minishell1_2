@@ -5,8 +5,8 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 void exec_cmd_bis(char **cmd)
 {
@@ -18,14 +18,9 @@ void exec_cmd_bis(char **cmd)
 
 void exec_cmd(char **cmd)
 {
-    int pipefd[2];
     pid_t pid = 0;
     int status = 0;
 
-    if (pipe(pipefd) == -1) {
-        perror("pipe");
-        exit(EXIT_FAILURE);
-    }
     pid = fork();
     if (pid == -1) {
         perror("fork");
@@ -37,34 +32,26 @@ void exec_cmd(char **cmd)
     }
 }
 
-int check_redirection(char **cmd, char *dir, global_t *global)
-{
-    int i = 0;
-
-    while (cmd[i]) {
-        if (my_strcmp(cmd[i], dir) == 0) {
-            global->line_redi = i;
-            return (0);
-        }
-        i++;
-    }
-    return (1);
-}
-
-void start(global_t *global, char *buffer)
+int start(global_t *global, char *buffer)
 {
     char **cmd = NULL;
 
     if (my_strlen(buffer) != 1) {
-        cmd = split_path(buffer, " \n\t");
-        cmd = search_bin(cmd, global->env);
+        if (search_in_env("PATH", global) == 0) {
+            cmd = split_path(buffer, " \n\t");
+            cmd = search_bin(cmd, global->env);
+        } else
+            return (84);
         if (cmd[0] == NULL) {
             my_putstr(buffer);
             my_putstr(": Command not found.\n");
+            free_array(cmd);
+            return (-1);
         } else {
             my_cmd(cmd, global->env, global);
             cdm_bin(cmd);
         }
     }
     free_array(cmd);
+    return (0);
 }

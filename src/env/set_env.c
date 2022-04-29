@@ -5,17 +5,18 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 void copy_env(char **env, global_t *global)
 {
     int nb = count_line(env);
     int i = 0;
     int j = 0;
+
     global->env = malloc(sizeof(char *) * (nb + 2));
     while (env[i]) {
-        global->env[i] = malloc(sizeof(char) * my_strlen(env[i]) + 300);
+        global->env[i] = my_malloc(global->env[i], my_strlen(env[i]) + 300);
         j = 0;
         while (env[i][j] != '\0') {
             global->env[i][j] = env[i][j];
@@ -31,7 +32,8 @@ void copy_env(char **env, global_t *global)
 void copy_name(global_t *global, char **cmd)
 {
     int i = 0;
-    global->name = malloc(sizeof(char) * (my_strlen(cmd[1]) + 1));
+
+    global->name = my_malloc(global->name, (my_strlen(cmd[1]) + 1));
     while (cmd[1][i] != '\0') {
         global->name[i] = cmd[1][i];
         i++;
@@ -49,11 +51,13 @@ int check_first_char(char **cmd)
         } else
             return (0);
     }
+    return (0);
 }
 
 int set_env(global_t *global, char **cmd)
 {
     int nb = count_line(cmd);
+
     if (nb < 2 || nb > 3)
         return (84);
     if (check_first_char(cmd) == 84)
@@ -68,10 +72,12 @@ int set_env(global_t *global, char **cmd)
 int unset_env(global_t *global, char **cmd)
 {
     int nb = count_line(cmd);
+
     if (nb != 2)
         return (84);
-    if (check_path(cmd[1]) == 1)
+    if (check_path(cmd[1]) == 1) {
         return (84);
+    }
     if (search_in_env(cmd[1], global) == 0) {
         change_env(global);
         global->current_line--;

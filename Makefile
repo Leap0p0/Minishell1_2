@@ -5,18 +5,26 @@
 ## makefile
 ##
 
-SRCS	=	src/special.c 	\
-			src/array.c 	\
+SRCS	=	src/built_in/special.c 	\
+			src/env/array.c 	\
 			src/cmd_bin.c 	\
-			src/free.c		\
-			src/set_env.c	\
-			src/search_env.c\
+			src/utils/free.c		\
+			src/env/set_env.c	\
+			src/env/search_env.c\
 			src/separator.c \
-			src/utils_separator.c\
-			src/build_cd.c  \
-			src/utils.c 	\
-			src/pwd.c 		\
-			src/start.c 	\
+			src/utils/utils_separator.c\
+			src/signal/pipe.c 		\
+			src/signal/redi_of_pipe.c\
+			src/utils/utils_pipe.c\
+			src/signal/signal.c  	\
+			src/utils/my_malloc.c\
+			src/signal/redirection.c\
+			src/built_in/build_cd.c  \
+			src/utils/utils.c 	\
+			src/built_in/pwd.c 		\
+			src/utils/utils_redirection.c\
+			src/check_file.c\
+			src/signal/start.c 	\
 			src/main.c		\
 
 

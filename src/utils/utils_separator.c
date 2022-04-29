@@ -5,12 +5,13 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 int check_sperator(char *path)
 {
     int i = 0;
+
     while (path[i] != '\0') {
         if (path[i] == ';')
             return (0);
@@ -22,6 +23,7 @@ int check_sperator(char *path)
 void count_sperator(char *path, global_t *global)
 {
     int i = 0;
+
     while (path[i] != '\0') {
         if (path[i] == ';')
             global->separator += 1;
@@ -32,6 +34,7 @@ void count_sperator(char *path, global_t *global)
 int check_null(char *path)
 {
     int i = 0;
+
     while (path[i] != '\0') {
         if (path[i] == '\t' || path[i] == '\n' || path[i] == ' ')
             i++;

@@ -12,6 +12,7 @@ void reassemble(global_t *global, char *str)
 {
     int i = global->current_separator;
     int k = 0;
+
     while (global->buffer[i] != '\0') {
         if (global->buffer[i] == ';')
             break;
@@ -26,7 +27,9 @@ void reassemble(global_t *global, char *str)
 
 int do_separator(global_t *global)
 {
-    char *str = malloc(sizeof(char) * my_strlen(global->buffer));
+    char *str = NULL;
+    str = my_malloc(str, my_strlen(global->buffer));
+
     reassemble(global, str);
     if (check_null(str) == 1)
         return (84);

@@ -5,13 +5,14 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 char *take_path(global_t *global, char *path)
 {
     int i = 0;
     int k = 0;
+
     while (global->env[global->line_of_search][i] != '=')
         i++;
     i++;
@@ -43,8 +44,9 @@ int search_in_env(char *path, global_t *global)
     char *cmp = NULL;
     int j;
     int i = 0;
+
     while (global->env[i]) {
-        cmp = malloc(sizeof(char) * my_strlen(global->env[i]) + 1);
+        cmp = my_malloc(cmp, my_strlen(global->env[i]) + 1);
         j = 0;
         cmp = path_env(cmp, global, j, i);
         if (my_strcmp(cmp, path) == 0) {

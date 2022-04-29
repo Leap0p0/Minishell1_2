@@ -20,10 +20,17 @@ typedef struct global {
     char *buffer;
     char **env;
     int current_line;
+    char *cmd_redi;
     int current_separator;
+    int pipe;
+    int current_pipe;
     int line_of_search;
     int separator;
     int count_separator;
+    int current_redi;
+    char *path_redi;
+    int redi;
+    int db_redi;
     int current_len;
     int line_redi;
     int current_lent;

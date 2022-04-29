@@ -5,8 +5,8 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 void free_array(char **array)
 {
@@ -41,9 +41,10 @@ char **split_path(char *raw_cmd, char *limit)
 char *search_path(char *bin, char **path_split, char **cmd)
 {
     int size;
+
     for (int i = 0; path_split[i]; i++) {
         size = my_strlen(path_split[i]) + my_strlen(cmd[0]) + 2;
-        bin = malloc(sizeof(char) * (size));
+        bin = my_malloc(bin, size);
         if (bin == NULL)
             break;
         my_strcpy(bin, path_split[i]);

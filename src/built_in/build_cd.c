@@ -5,8 +5,8 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 int my_puterrorcd(char *str, char *path)
 {
@@ -32,8 +32,9 @@ int error_of_cd(char *path)
 int last_cd(global_t *global)
 {
     search_in_env("OLDPWD", global);
-    char *path =
-    malloc(sizeof(char) * my_strlen(global->env[global->line_of_search]));
+    char *path = NULL;
+    path = my_malloc(path, my_strlen(global->env[global->line_of_search]));
+
     path = take_path(global, path);
     if (chdir(path) == -1) {
         error_of_cd(path);

@@ -5,8 +5,8 @@
 ** root
 */
 
-#include "./../include/my.h"
-#include "./../include/pus.h"
+#include "./../../include/my.h"
+#include "./../../include/pus.h"
 
 int check_path(char *path)
 {
@@ -24,6 +24,7 @@ int count_line(char **tab)
 {
     int i = 0;
     int nb = 0;
+
     while (tab[i]) {
         nb++;
         i++;
@@ -35,6 +36,7 @@ void change_env(global_t *global)
 {
     int i = 0;
     int k;
+
     for (; i < global->line_of_search; i++);
     k = i;
     i++;
@@ -49,12 +51,14 @@ void change_env(global_t *global)
 void new_env(global_t *global, char **cmd)
 {
     int len;
+
     if (count_line(cmd) >= 3)
         len = my_strlen(cmd[1]) + my_strlen(cmd[2]) + 1;
     else
         len = my_strlen(cmd[1]) + 2;
     global->current_lent = my_strlen(cmd[1]);
-    global->env[global->current_line] = malloc(sizeof(char) * (len + 1));
+    global->env[global->current_line] =
+    my_malloc(global->env[global->current_line], (len + 1));
     copy_name(global, cmd);
     global->env[global->current_line] =
     my_strcpy(global->env[global->current_line], cmd[1]);

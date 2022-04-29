@@ -25,10 +25,17 @@ typedef struct global {
     char *buffer;
     char **env;
     int current_line;
+    char *cmd_redi;
     int current_separator;
+    int pipe;
+    int current_pipe;
     int line_of_search;
     int separator;
     int count_separator;
+    int current_redi;
+    char *path_redi;
+    int redi;
+    int db_redi;
     int current_len;
     int line_redi;
     int current_lent;
@@ -72,7 +79,7 @@ int cd_home(char **env);
 //start.c
 void exec_cmd_bis(char **cmd);
 void exec_cmd(char **cmd);
-void start(global_t *global, char *buffer);
+int start(global_t *global, char *buffer);
 //utils.c
 int count_line(char **tab);
 void change_env(global_t *global);
@@ -89,6 +96,40 @@ void count_sperator(char *path, global_t *global);
 int check_null(char *path);
 //free.c
 void general_free(global_t *global);
+void do_free_pipe(char **cmd, char **cmd_two, char *first, char *second);
+void my_free(char *path);
 //pipe.c
-void do_pipe(global_t *global, char *str, char *str_bis);
+void do_pipe(global_t *global, char **, char **);
+void cmd_pipe(global_t *global, char *str);
+int parse_pipe(global_t *global);
+int go_pipe(global_t *global);
+//signal.c
+void do_reverse_fork(global_t *global, char **cmd_two, int pipefd[2]);
+void do_fork(global_t *global, char **cmd, int pipefd[2]);
+//utils_pipe.c
+int check_parsing(char **cmd, char *path);
+int check_pipe(char *path);
+void count_pipe(char *path, global_t *global);
+void exec_cmd_pipe(char **cmd);
+void cdm_bin_pipe(char **cmd);
+//redirection.c
+int double_redirection(char *path, global_t *global);
+int redirection(char *path, global_t *global);
+int start_redirection(global_t *global);
+//utils_redirection.c
+int check_redirection(char *path);
+int search_redi(global_t *global, int i);
+void check_nbr_redi(global_t *global);
+int parse_redirection(global_t *global);
+//check_file.c
+void take_cmd(global_t *global);
+void check_file(global_t *global);
+//my_malloc.c
+void *my_malloc(void *var, int size);
+int check_pars_of_pipe(char *first, char *second, char **cmd, char **cmd_two);
+int check_of_pipe(char *first, char *second);
+//redi_of_pipe.c
+int double_redi_pipe(char *path, global_t *global, char **cmd, char **cmd_two);
+int redi_pipe(char *path, global_t *global, char **cmd, char **cmd_two);
+int start_redi_pipe(global_t *global, char **cmd, char **cmd_two);
 #endif/* PUS */
